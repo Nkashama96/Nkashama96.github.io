@@ -1,0 +1,4 @@
+Hello! I'm Your Name, a developer passionate about creating clean and functional web experiences.
+
+I enjoy working with modern JavaScript frameworks, backend APIs, and UI/UX design.
+When I'm not coding, I love reading tech blogs and exploring creative projects.
