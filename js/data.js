@@ -22,12 +22,5 @@ const projects = [
     image: "img/project2.jpg",
     link: "#",
     github: "#"
-  },
-  {
-    title: "Project Three",
-    description: "Data visualization dashboard using Python.",
-    image: "img/project3.jpg",
-    link: "#",
-    github: "#"
   }
 ];
