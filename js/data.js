@@ -13,7 +13,7 @@ const projects = [
     title: "Barcode Fighter",
     description: "Responsive website built NFT.",
     image: "img/project1.png",
-    link: "#",
+    link: "https://nkashama96.github.io/nft-ui",
     github: "#"
   },
   {
