@@ -1,1 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minimal NFT Game — Upload</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>BYTEPULSE NFT — Upload</h1>
+      <p class="sub">Minimal black & white UI — upload images to create NFT assets</p>
+    </header>
+
+    <section class="uploader">
+      <div id="dropzone" class="dropzone">
+        <input id="fileInput" type="file" accept="image/*" multiple hidden />
+        <button id="chooseBtn" class="btn">Choose images</button>
+        <div class="hint">or drag & drop images here</div>
+      </div>
+
+      <div id="preview" class="preview-grid" aria-live="polite"></div>
+
+      <div class="controls">
+        <label class="meta">
+          Asset name
+          <input id="assetName" type="text" placeholder="My NFT asset (optional)">
+        </label>
+
+        <label class="meta">
+          Description
+          <input id="assetDesc" type="text" placeholder="Short description (optional)">
+        </label>
+
+        <button id="mintPreviewBtn" class="btn primary">Preview token data</button>
+        <button id="clearBtn" class="btn ghost">Clear</button>
+      </div>
+
+      <pre id="metadataOutput" class="metadata" hidden></pre>
+    </section>
+
+    <footer>
+      <small>Local UI only — not connected to blockchain or backend.</small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
 
