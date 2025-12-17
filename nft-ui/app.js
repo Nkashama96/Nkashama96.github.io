@@ -1,100 +1,129 @@
-import {
-  BrowserMultiFormatReader
-} from "https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/+esm";
+// Minimal JS for drag-drop, preview, and generating a sample metadata JSON
+(() => {
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const chooseBtn = document.getElementById('chooseBtn');
+  const preview = document.getElementById('preview');
+  const clearBtn = document.getElementById('clearBtn');
+  const mintPreviewBtn = document.getElementById('mintPreviewBtn');
+  const metadataOutput = document.getElementById('metadataOutput');
+  const assetName = document.getElementById('assetName');
+  const assetDesc = document.getElementById('assetDesc');
 
-const reader = new BrowserMultiFormatReader();
+  let files = [];
 
-const fileInput = document.getElementById("fileInput");
-const chooseBtn = document.getElementById("chooseBtn");
-const preview = document.getElementById("preview");
-const output = document.getElementById("metadataOutput");
-const mintBtn = document.getElementById("mintPreviewBtn");
-const clearBtn = document.getElementById("clearBtn");
+  function prevent(e){ e.preventDefault(); e.stopPropagation(); }
 
-let barcodeList = [];
+  ['dragenter','dragover','dragleave','drop'].forEach(evt => {
+    dropzone.addEventListener(evt, prevent, false);
+  });
 
-chooseBtn.onclick = () => fileInput.click();
-clearBtn.onclick = reset;
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    handleFiles(Array.from(dt.files));
+  });
 
-fileInput.onchange = async () => {
-  barcodeList = [];
-  preview.innerHTML = "";
-  output.hidden = true;
+  dropzone.addEventListener('click', () => fileInput.click());
+  chooseBtn.addEventListener('click', () => fileInput.click());
 
-  for (const file of fileInput.files) {
-    await processImage(file);
+  fileInput.addEventListener('change', (e) => {
+    handleFiles(Array.from(e.target.files));
+    fileInput.value = null; // reset
+  });
+
+  clearBtn.addEventListener('click', () => {
+    files = [];
+    renderPreview();
+    metadataOutput.hidden = true;
+  });
+
+  function handleFiles(list){
+    // accept only images
+    const imgs = list.filter(f => f.type && f.type.startsWith('image/'));
+    files = files.concat(imgs);
+    renderPreview();
   }
-};
 
-async function processImage(file) {
-  const img = new Image();
-  img.src = URL.createObjectURL(file);
-  await img.decode();
+  function renderPreview(){
+    preview.innerHTML = '';
+    files.forEach((f, idx) => {
+      const card = document.createElement('div'); card.className = 'thumb';
+      const img = document.createElement('img');
+      const info = document.createElement('div'); info.className='info';
+      const name = document.createElement('span'); name.textContent = f.name;
+      const size = document.createElement('span'); size.textContent = `${Math.round(f.size/1024)}KB`;
+      info.appendChild(name); info.appendChild(size);
 
-  const trimmedCanvas = trimWhitespace(img);
-  const previewImg = document.createElement("img");
-  previewImg.src = trimmedCanvas.toDataURL();
-  preview.appendChild(previewImg);
+      const reader = new FileReader();
+      reader.onload = (ev) => img.src = ev.target.result;
+      reader.readAsDataURL(f);
 
-  try {
-    const result = await reader.decodeFromCanvas(trimmedCanvas);
-    const type = result.getBarcodeFormat();
-    const data = result.getText();
-    const hash = await sha3(data);
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'btn';
+      removeBtn.textContent = 'Remove';
+      removeBtn.onclick = () => {
+        files.splice(idx,1);
+        renderPreview();
+      };
 
-    barcodeList.push([type, data, hash]);
-  } catch {
-    barcodeList.push(["UNKNOWN", null, null]);
-  }
-}
+      card.appendChild(img);
+      card.appendChild(info);
+      card.appendChild(removeBtn);
+      preview.appendChild(card);
+    });
 
-function trimWhitespace(img) {
-  const c = document.createElement("canvas");
-  const ctx = c.getContext("2d");
-  c.width = img.width;
-  c.height = img.height;
-  ctx.drawImage(img, 0, 0);
-
-  const pixels = ctx.getImageData(0, 0, c.width, c.height);
-  let minX = c.width, minY = c.height, maxX = 0, maxY = 0;
-
-  for (let i = 0; i < pixels.data.length; i += 4) {
-    const alpha = pixels.data[i + 3];
-    if (alpha > 0) {
-      const x = (i / 4) % c.width;
-      const y = Math.floor(i / 4 / c.width);
-      minX = Math.min(minX, x);
-      minY = Math.min(minY, y);
-      maxX = Math.max(maxX, x);
-      maxY = Math.max(maxY, y);
+    if(files.length === 0){
+      preview.innerHTML = '<div style="color:var(--muted); padding:12px">No images selected</div>';
     }
   }
 
-  const trimmed = document.createElement("canvas");
-  trimmed.width = maxX - minX;
-  trimmed.height = maxY - minY;
-  trimmed
-    .getContext("2d")
-    .drawImage(c, minX, minY, trimmed.width, trimmed.height, 0, 0, trimmed.width, trimmed.height);
+  // Simple deterministic ID generator (SHA-1-like fallback using crypto.subtle if available)
+  async function hashFile(file){
+    if(window.crypto && crypto.subtle && crypto.subtle.digest){
+      const arrayBuffer = await file.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2,'0')).join('').slice(0,16);
+    } else {
+      // fallback: name+size+lastModified hashed simple
+      return btoa(`${file.name}:${file.size}:${file.lastModified}`).slice(0,16);
+    }
+  }
 
-  return trimmed;
-}
+  mintPreviewBtn.addEventListener('click', async () => {
+    if(files.length === 0){
+      alert('Please upload at least one image.');
+      return;
+    }
+    // Build metadata array
+    const items = [];
+    for (let f of files){
+      const id = await hashFile(f);
+      items.push({
+        token_id: id,
+        name: assetName.value || f.name,
+        description: assetDesc.value || '',
+        filename: f.name,
+        size: f.size,
+        mime: f.type,
+        // image_data: omitted (we don't send binary here)
+      });
+    }
 
-async function sha3(text) {
-  const enc = new TextEncoder().encode(text);
-  const hash = await crypto.subtle.digest("SHA-3-512", enc);
-  return [...new Uint8Array(hash)]
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
+    const metadata = {
+      created_at: new Date().toISOString(),
+      count: items.length,
+      items
+    };
 
-mintBtn.onclick = () => {
-  output.hidden = false;
-  output.textContent = JSON.stringify(barcodeList, null, 2);
-};
+    metadataOutput.textContent = JSON.stringify(metadata, null, 2);
+    metadataOutput.hidden = false;
 
-function reset() {
-  barcodeList = [];
-  preview.innerHTML = "";
-  output.hidden = true;
-}
+    // For future: you could POST metadata + files to backend endpoint here.
+    // e.g. fetch('/api/upload', {method:'POST', body: formData})
+  });
+
+  // initial render
+  renderPreview();
+})();
+
