@@ -10,14 +10,21 @@ const skills = [
 // Portfolio Projects
 const projects = [
   {
-    title: "Project One",
-    description: "Responsive website built with React.",
+    title: "Barcode Fighter",
+    description: "Responsive website built NFT.",
     image: "img/project1.jpg",
     link: "#",
     github: "#"
   },
   {
     title: "Project Two",
+    description: "Data visualization dashboard using Python.",
+    image: "img/project2.jpg",
+    link: "#",
+    github: "#"
+  },
+    {
+    title: "Project Three",
     description: "Data visualization dashboard using Python.",
     image: "img/project2.jpg",
     link: "#",
