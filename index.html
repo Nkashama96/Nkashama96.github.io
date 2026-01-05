@@ -7,8 +7,13 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
   <style>
-    /* Same CSS as before — unchanged for design */
     body { font-family: 'Roboto'; margin: 0; padding: 0; background:#f4f4f4; color:#333; }
     header { background:#333; color:#fff; padding:1em 0; text-align:center; }
     nav { background:#444; padding:0.5em 0; text-align:center; }
@@ -24,6 +29,29 @@
     .portfolio-item { border:1px solid #ddd; border-radius:8px; overflow:hidden; background:#fff; }
     .portfolio-item img { width:100%; height:200px; object-fit:cover; }
     .portfolio-item-info { padding:15px; }
+
+    /* ===== CONTACT ICONS ===== */
+    .contact-icons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .contact-icons a {
+      font-size: 32px;
+      color: #333;
+      transition: transform 0.2s ease, color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .contact-icons a:hover {
+      transform: translateY(-4px);
+    }
+
+    .contact-icons a.email:hover { color: #d93025; }
+    .contact-icons a.github:hover { color: #000; }
+    .contact-icons a.linkedin:hover { color: #0a66c2; }
   </style>
 </head>
 
@@ -44,7 +72,7 @@
 
   <main>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT -->
     <section id="about">
       <img id="profile-photo" src="img/profile.png" alt="Profile">
       <div class="about-content">
@@ -55,7 +83,7 @@
 
     <hr>
 
-    <!-- SKILLS SECTION -->
+    <!-- SKILLS -->
     <section id="skills">
       <h2>My Skills 🛠️</h2>
       <ul id="skills-list"></ul>
@@ -63,7 +91,7 @@
 
     <hr>
 
-    <!-- PORTFOLIO SECTION -->
+    <!-- PORTFOLIO -->
     <section id="portfolio">
       <h2>Portfolio 🚀</h2>
       <div id="portfolio-grid" class="portfolio-grid"></div>
@@ -71,28 +99,41 @@
 
     <hr>
 
-    <!-- CONTACT SECTION -->
+    <!-- CONTACT -->
     <section id="contact">
       <h2>Get In Touch ✉️</h2>
-      <p>Email: your.name@xyz.com</p>
+
+      <div class="contact-icons">
+        <a class="email" href="mailto:your.name@xyz.com" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+
+        <a class="github" href="https://github.com/yourusername"
+           target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a class="linkedin" href="https://www.linkedin.com/in/yourprofile"
+           target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </div>
     </section>
+
   </main>
 
   <footer>
     <p>&copy; 2025 Nkashama</p>
   </footer>
 
-  <!-- Load Data (skills, projects) -->
+  <!-- Load Data -->
   <script src="js/data.js"></script>
 
-  <!-- Page Loader -->
   <script>
-    // Load About Text from about.txt
     fetch('about.txt')
       .then(res => res.text())
       .then(text => document.getElementById('about-text').innerText = text);
 
-    // Load Skills
     const skillsList = document.getElementById("skills-list");
     skills.forEach(skill => {
       const li = document.createElement("li");
@@ -100,12 +141,10 @@
       skillsList.appendChild(li);
     });
 
-    // Load Portfolio Projects
     const portfolioGrid = document.getElementById("portfolio-grid");
     projects.forEach(p => {
       const item = document.createElement("div");
       item.className = "portfolio-item";
-
       item.innerHTML = `
         <img src="${p.image}" alt="${p.title}">
         <div class="portfolio-item-info">
