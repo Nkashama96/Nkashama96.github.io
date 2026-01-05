@@ -1,4 +1,4 @@
-Hello! I'm Nkashama(anonymous name), a developer passionate about database systems and board gaming, board game functional.
+Hello! I'm Nkashama(anonymous name), a developer passionate about database systems, board gaming and board game functional.
 
 I enjoy working with SQL, python, backend APIs, and currently obsessed with kali linux.
 When I'm not coding, I love reading fictions and exploring creative projects.
