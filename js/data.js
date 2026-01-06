@@ -2,6 +2,8 @@
 const skills = [
   "HTML5",
   "Python",
+  "Oracle Forms",
+  "Oracle Report",
   "PL/SQL",
   "SQL",
   "Git"
