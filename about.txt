@@ -3,4 +3,4 @@ Hello! I'm Nkashama(anonymous name), a developer passionate about database syste
 I enjoy working with SQL, python, backend APIs, and currently obsessed with kali linux.
 When I'm not coding, I love reading fictions and exploring creative projects.
 
-Now, I try to study Rust.
+Now, I try to learning Rust.
