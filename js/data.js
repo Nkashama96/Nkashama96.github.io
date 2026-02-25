@@ -24,5 +24,12 @@ const projects = [
     image: "https://legacy.python.org/community/logos/python-powered-h.svg",
     link: "#",
     github: "#"
+  },
+  {
+    title: "Python Sanook Sanook",
+    description: "Note for Basic Python",
+    image: "https://legacy.python.org/community/logos/python-powered-h.svg",
+    link: "#",
+    github: "https://github.com/Nkashama96/TestTest_My_python_skill"
   }
 ];
