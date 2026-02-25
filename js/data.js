@@ -14,7 +14,7 @@ const projects = [
   {
     title: "Barcode Fighter",
     description: "Responsive website built NFT.",
-    image: "img/project1.png",
+    image: "img/ts-logo-128.svg",
     link: "https://nkashama96.github.io/nft-ui",
     github: "#"
   },
