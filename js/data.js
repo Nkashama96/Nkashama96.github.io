@@ -31,5 +31,10 @@ const projects = [
     image: "https://legacy.python.org/community/logos/python-powered-h.svg",
     link: "#",
     github: "https://github.com/Nkashama96/TestTest_My_python_skill"
+  },
+  {
+    title: "Foundational MATLAB",
+    description: "Foundational MATLAB Badge",
+    image: "img/Foundational_MATLAB.png"
   }
 ];
