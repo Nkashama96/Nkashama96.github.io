@@ -149,13 +149,18 @@
     projects.forEach(p => {
       const item = document.createElement("div");
       item.className = "portfolio-item";
+
+      // Check if links exist, otherwise return empty string
+      const viewLink = p.link ? `<a href="${p.link}" target="_blank">View</a>` : '';
+      const githubLink = p.github ? `<a href="${p.github}" target="_blank">GitHub</a>` : '';
+      const separator = (p.link && p.github) ? ' | ' : '';
+      
       item.innerHTML = `
         <img src="${p.image}" alt="${p.title}">
         <div class="portfolio-item-info">
           <h3>${p.title}</h3>
           <p>${p.description}</p>
-          <a href="${p.link}" target="_blank">View</a> | 
-          <a href="${p.github}" target="_blank">GitHub</a>
+          ${viewLink}${separator}${githubLink}
         </div>
       `;
       portfolioGrid.appendChild(item);
