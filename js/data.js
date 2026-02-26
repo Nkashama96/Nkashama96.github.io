@@ -34,7 +34,7 @@ const projects = [
   },
   {
     title: "Foundational MATLAB",
-    description: "Foundational MATLAB Badge",
+    description: "I received Foundational MATLAB Badge",
     image: "img/Foundational_MATLAB.png"
   }
 ];
