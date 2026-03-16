@@ -33,6 +33,13 @@ const projects = [
     github: "https://github.com/Nkashama96/TestTest_My_python_skill"
   },
   {
+    title: "Hash-Dehash",
+    description: "Hash lab.",
+    image: "https://legacy.python.org/community/logos/python-powered-h.svg",
+    link: "https://Nkashama96.github.io/text-hash-tool",
+    github: "#"
+  },
+  {
     title: "Foundational MATLAB",
     description: "I got Foundational MATLAB Badge",
     image: "img/Foundational_MATLAB.png"
