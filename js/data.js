@@ -35,9 +35,9 @@ const projects = [
   {
     title: "Hash-Dehash",
     description: "Hash lab.",
-    image: "https://legacy.python.org/community/logos/python-powered-h.svg",
+    image: "https://www.w3.org/html/logo/badge/html5-badge-h-solo.png",
     link: "https://Nkashama96.github.io/text-hash-tool/web/#",
-    github: "#"
+    github: "https://github.com/Nkashama96/text-hash-tool"
   },
   {
     title: "Foundational MATLAB",
