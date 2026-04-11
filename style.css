@@ -1,0 +1,159 @@
+/* style.css */
+
+body { 
+    font-family: 'Roboto'; 
+    margin: 0; 
+    padding: 0; 
+    background:#f4f4f4; 
+    color:#333; 
+}
+
+header { 
+    background:#333; 
+    color:#fff; 
+    padding:1em 0; 
+    text-align:center; 
+    font-weight:bold; 
+    font-size: 150%; 
+}
+
+nav { 
+    background:#444; 
+    padding:0.5em 0; 
+    text-align:center; 
+}
+
+nav ul { 
+    list-style:none; 
+    display:flex; 
+    justify-content:center; 
+    padding:0; 
+    margin:0; 
+}
+
+nav ul li { margin:0 15px; }
+
+nav ul li a { 
+    color:#fff; 
+    text-decoration:none; 
+    font-weight:bold; 
+}
+
+section { 
+    max-width:900px; 
+    padding:40px 20px; 
+    margin:auto; 
+    background:#fff; 
+    border-bottom:1px solid #ddd; 
+}
+
+#about { 
+    display:flex; 
+    flex-wrap:wrap; 
+    align-items:center; 
+    justify-content:center; 
+}
+
+#about img { 
+    width:150px; 
+    height:150px; 
+    border-radius:50%; 
+    object-fit:cover; 
+    margin-right:30px; 
+}
+
+#skills {
+    font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+#skills ul { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); 
+    gap:15px; 
+    list-style:none; 
+    padding:0; 
+}
+
+#skills ul li { 
+    background:#0a0a0a; 
+    color: #ffffff; 
+    padding:10px; 
+    border-radius:5px; 
+    text-align:center; 
+    font-weight:bold; 
+    font-size: 20px; 
+}
+
+#badges {
+    font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+#badges ul { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); 
+    gap:15px; 
+    list-style:none; 
+    padding:0; 
+}
+
+#badges ul li { 
+    background:#0a0a0a; 
+    color: #ffffff; 
+    padding:10px; 
+    border-radius:5px; 
+    text-align:center; 
+    font-weight:bold; 
+    font-size: 20px; 
+}
+
+#week-api {
+    font-weight: bold;
+    color: #007bff;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.portfolio-grid { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); 
+    gap:25px; 
+}
+
+.portfolio-item { 
+    border:1px solid #ddd; 
+    border-radius:8px; 
+    overflow:hidden; 
+    background:#fff; 
+}
+
+.portfolio-item img { 
+    width:100%; 
+    height:200px; 
+    object-fit:cover; 
+}
+
+.portfolio-item-info { padding:15px; }
+
+/* ===== CONTACT ICONS ===== */
+.contact-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.contact-icons a {
+    font-size: 32px;
+    color: #333;
+    transition: transform 0.2s ease, color 0.3s ease;
+    text-decoration: none;
+}
+
+.contact-icons a:hover {
+    transform: translateY(-4px);
+}
+
+.contact-icons a.email:hover { color: #d93025; }
+.contact-icons a.github:hover { color: #000; }
+.contact-icons a.linkedin:hover { color: #0a66c2; }

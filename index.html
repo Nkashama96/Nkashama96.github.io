@@ -7,56 +7,21 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <style>
-    body { font-family: 'Roboto'; margin: 0; padding: 0; background:#f4f4f4; color:#333; }
-    header { background:#333; color:#fff; padding:1em 0; text-align:center; font-weight:bold; font-size: 150%; }
-    nav { background:#444; padding:0.5em 0; text-align:center; }
-    nav ul { list-style:none; display:flex; justify-content:center; padding:0; margin:0; }
-    nav ul li { margin:0 15px; }
-    nav ul li a { color:#fff; text-decoration:none; font-weight:bold; }
-    section { max-width:900px; padding:40px 20px; margin:auto; background:#fff; border-bottom:1px solid #ddd; }
-    #about { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; }
-    #about img { width:150px; height:150px; border-radius:50%; object-fit:cover; margin-right:30px; }
-    #skills {font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;}
-    #skills ul { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; list-style:none; padding:0; }
-    #skills ul li { background:#0a0a0a; color: #ffffff; padding:10px; border-radius:5px; text-align:center; font-weight:bold; font-size: 20px; }
-    #badges {font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;}
-    #badges ul { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; list-style:none; padding:0; }
-    #badges ul li { background:#0a0a0a; color: #ffffff; padding:10px; border-radius:5px; text-align:center; font-weight:bold; font-size: 20px; }
-    .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:25px; }
-    .portfolio-item { border:1px solid #ddd; border-radius:8px; overflow:hidden; background:#fff; }
-    .portfolio-item img { width:100%; height:200px; object-fit:cover; }
-    .portfolio-item-info { padding:15px; }
+  <link rel="stylesheet" href="style.css">
 
-    /* ===== CONTACT ICONS ===== */
-    .contact-icons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 20px;
-    }
+  <!--Calendar item-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker();
+        });
+    </script>
 
-    .contact-icons a {
-      font-size: 32px;
-      color: #333;
-      transition: transform 0.2s ease, color 0.3s ease;
-      text-decoration: none;
-    }
-
-    .contact-icons a:hover {
-      transform: translateY(-4px);
-    }
-
-    .contact-icons a.email:hover { color: #d93025; }
-    .contact-icons a.github:hover { color: #000; }
-    .contact-icons a.linkedin:hover { color: #0a66c2; }
-  </style>
 </head>
 
 <body>
@@ -100,6 +65,11 @@
     <section id="portfolio">
       <h2>Portfolio 🚀</h2>
       <div id="portfolio-grid" class="portfolio-grid"></div>
+      <hr>
+      <h3>API 🔥</h3>
+      <!--<label for="datepicker">Select date:</label>
+      <input type="text" id="datepicker">
+      <p>Here is one of my repo. Calculate Weeks: <span id="week-api">Loading...</span></p>-->
     </section>
 
     <hr>
@@ -175,6 +145,21 @@
       `;
       portfolioGrid.appendChild(item);
     });
+
+    // 1. Store your Render API URL in a variable
+    async function updateWeekDisplay() {
+    const displayElement = document.getElementById('week-api');
+    try {
+      // Replace with your actual deployed API URL
+      const response = await fetch('https://week-api.onrender.com');
+      const data = await response.text();
+      displayElement.innerText = data;
+    } catch (err) {
+      displayElement.innerText = "Error loading data";
+      console.error(err);
+    }
+  }
+  updateWeekDisplay();
   </script>
 
 </body>
